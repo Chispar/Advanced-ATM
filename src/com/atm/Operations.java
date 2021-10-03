@@ -1,4 +1,4 @@
-package com.atm.machine;
+package com.atm;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;

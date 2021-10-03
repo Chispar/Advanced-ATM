@@ -1,6 +1,6 @@
-package com.atm.machine;
+package com.atm;
 
-public class Main {
+public class Atm {
 
     public static void main(String[] args) throws InterruptedException {
         Operations e = new Operations();
