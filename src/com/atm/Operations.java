@@ -7,14 +7,14 @@ import java.util.Scanner;
 public class Operations {
     DecimalFormat money = new DecimalFormat("'MWK'###,###,##0.00");
     Scanner scan = new Scanner(System.in);
-    double accBal = 0, amount = 0;
-    int option = 0;
-    String operation, location;
+    private double accBal = 0, amount = 0;
+    private int option = 0;
+    private String operation, location;
 
     ArrayList<String> statements = new ArrayList<>();
 
-    void menu() throws InterruptedException {
-        System.out.println("\n\n\nSelect a service:" +
+    public void menu() {
+        System.out.println("\n\nSelect a service:" +
                 "\n" +
                 "1. Check Balance\n" +
                 "2. Withdraw Money\n" +
@@ -25,7 +25,7 @@ public class Operations {
         cases();
     }
 
-    void cases() throws InterruptedException {
+    private void cases() {
         switch (option) {
             case 1 -> balance();
             case 2 -> withdraw();
@@ -35,38 +35,23 @@ public class Operations {
         }
     }
 
-    void withdraw() throws InterruptedException {
+    private void withdraw() {
         System.out.print("Enter amount to withdraw: MWK");
         amount = scan.nextDouble();
         System.out.println("Proceed to withdraw " + money.format(amount) + " from your account?");
         operation = "withdrawn";
         location = "from";
         confirmation();
-        Thread.sleep(3000);
         menu();
     }
 
-    void processing() throws InterruptedException {
-        int i = 0;
-        while (i < 3) {
-            System.out.print("Please wait...");
-            Thread.sleep(500);
-            System.out.print("\b\b\b\b\b\b\b\b\b\b\b\b\b\b");
-            System.out.print("              ");
-            Thread.sleep(500);
-            System.out.print("\b\b\b\b\b\b\b\b\b\b\b\b\b\b");
-            i++;
-        }
-    }
-
-    void deposit() throws InterruptedException {
+    private void deposit() {
         System.out.print("Enter amount to deposit: MWK");
         amount = scan.nextDouble();
         System.out.println("Proceed to deposit " + money.format(amount) + " into your account?");
         operation = "deposited";
         location = "into";
         confirmation();
-        Thread.sleep(2000);
         menu();
     }
 
@@ -80,24 +65,23 @@ public class Operations {
         }
     }
 
-    void statement() throws InterruptedException {
+    private void statement() {
         for (int i = 0; i < statements.size(); i++) {
             System.out.println((i+1) + ". " + statements.get(i));
         }
-        Thread.sleep(3000);
         menu();
     }
 
-    void exit() {
+    private void exit() {
         System.out.println("Thank you for banking with us.");
     }
 
-    void balance() throws InterruptedException {
+    private void balance() {
         System.out.println("Your balance is " + money.format(accBal)+ ".");
         menu();
     }
 
-    void confirmation() throws InterruptedException {
+    private void confirmation() {
         System.out.println("1. Yes\n" +
                 "2. No\n" +
                 "0. Menu");
@@ -105,7 +89,6 @@ public class Operations {
         switch (option) {
             case 1 -> {
                 if (operation.equals("withdrawn")) {
-                    processing();
                     if (amount <= accBal) {
                         accBal -= amount;
                         addStatement();
@@ -118,7 +101,6 @@ public class Operations {
                 }else {
                     accBal += amount;
                     addStatement();
-                    processing();
                     System.out.print("You have successfully " + operation + " " + money.format(amount) + " " + location + " your account.\n" +
                             "Your new balance is " + money.format(accBal) + ".");
                 }
